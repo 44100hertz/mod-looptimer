@@ -9,31 +9,30 @@
 
 int main(int argc, char **argv)
 {
-	int bpm, length, midinote, beats;
-	double freq, preciseNote, finetune;
-
 	if (argc<3) {
-		puts("Usage: notecalc [bpm] [length] (beats)\n"
-		"  BPM is beats per minute\n"
-		"  Length is in samples\n"
-		"  Beats (optional, default 4)");
+		puts(
+                        "Usage: notecalc [bpm] [length] (beats)\n"
+                        "  BPM is beats per minute\n"
+                        "  Length is in samples\n"
+                        "  Beats (optional, default 4)"
+                        );
 		return 1;
         }
 
-	bpm = atoi(argv[1]);
-	length = atoi(argv[2]);
-
+        int beats;
 	if (argc<4)
-		beats=4; /* default 4 beats per measure */
+		beats=4; /* default 4 beats per loop */
 	else
 		beats=atoi(argv[3]);
 
-        /* find the midi note number */
-	preciseNote = 12 * log2(bpm * length / 60.0 / C4SPEED / beats);
+	int bpm = atoi(argv[1]);
+	int length = atoi(argv[2]);
 
-	midinote = roundf(preciseNote);
-	finetune = preciseNote - midinote;
-	printf("Note:%d\nFinetune:%f\n", midinote, finetune * 128);
+        /* Midi note is used */
+	double preciseNote = 12 * log2(bpm * length / 60.0 / C4SPEED / beats);
+	int midinote = roundf(preciseNote);
+	int finetune = 128 * (preciseNote - midinote);
+	printf("Note:%d\nFinetune:%f\n", midinote, finetune);
 
 	return 0;
 }

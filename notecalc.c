@@ -3,6 +3,7 @@
  * ssaammp at gmail dot com 2014-11-20   */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 #define C4SPEED 8363 /* ancient magic number used in .mod, .xm, others */
@@ -23,7 +24,7 @@ int main(int argc, char **argv)
 	if (argc<4)
 		beats=4; /* default 4 beats per loop */
 	else
-		beats=atoi(argv[3]);
+		beats = atoi(argv[3]);
 
 	int bpm = atoi(argv[1]);
 	int length = atoi(argv[2]);
@@ -32,7 +33,7 @@ int main(int argc, char **argv)
 	double preciseNote = 12 * log2(bpm * length / 60.0 / C4SPEED / beats);
 	int midinote = roundf(preciseNote);
 	int finetune = 128 * (preciseNote - midinote);
-	printf("Note:%d\nFinetune:%f\n", midinote, finetune);
+	printf("Note:%+d\nFinetune:%+d\n", midinote, finetune);
 
 	return 0;
 }

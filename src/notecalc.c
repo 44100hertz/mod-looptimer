@@ -20,14 +20,11 @@ int main(int argc, char **argv)
 		return 1;
         }
 
-        int beats;
-	if (argc<4)
-		beats=4; /* default 4 beats per loop */
-	else
-		beats = atoi(argv[3]);
-
 	int bpm = atoi(argv[1]);
 	int length = atoi(argv[2]);
+        int beats = 4;
+	if (argc>3)
+		beats = atoi(argv[3]);
 
         /* Midi note is used */
 	double preciseNote = 12 * log2(bpm * length / 60.0 / C4SPEED / beats);

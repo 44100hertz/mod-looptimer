@@ -22,9 +22,9 @@ int main(int argc, char **argv)
 
 	int bpm = atoi(argv[1]);
 	int length = atoi(argv[2]);
-        int beats = 4;
+        double beats = 4.0;
 	if (argc>3)
-		beats = atoi(argv[3]);
+		beats = atof(argv[3]);
 
         /* Midi note is used */
 	double preciseNote = 12 * log2(bpm * length / 60.0 / C4SPEED / beats);
